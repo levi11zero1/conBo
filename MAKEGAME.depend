@@ -472,10 +472,10 @@
 	<SDL2/SDL_image.h>
 	<iostream>
 
-1741712656 c:\game\makegame\player.h
+1741793439 c:\game\makegame\player.h
 	<SDL2/SDL.h>
 
-1741712719 source:c:\game\makegame\player.cpp
+1741793504 source:c:\game\makegame\player.cpp
 	"Player.h"
 	<SDL2/SDL_image.h>
 	<iostream>

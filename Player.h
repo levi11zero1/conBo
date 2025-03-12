@@ -15,13 +15,22 @@ public:
 
 private:
     SDL_Texture* texture;
+    SDL_Texture* runTexture;
     SDL_Rect rect;
-
+    int frame;
+    int frameDelay;
+    int maxFrames = 8;
+    float acceleration;
     float velocityX;
     float velocityY;
     bool isJumping;
     int coyoteTimeCounter = 0;
     const int COYOTE_TIME = 10;
+    int direction;
+    SDL_Texture* runTextureRight;
+    SDL_Texture* runTextureLeft;
+    SDL_Texture* jumpTextureRight;
+    SDL_Texture* jumpTextureLeft;
 };
 
 #endif

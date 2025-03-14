@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Player.h"
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
@@ -24,7 +25,7 @@ bool Game::init(const char* title, int width, int height) {
         return false;
     }
 
-    SDL_Surface* tempSurface = IMG_Load("img/background.jpg");
+    SDL_Surface* tempSurface = IMG_Load("img/background.png");
     backgroundTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
     SDL_FreeSurface(tempSurface);
 
@@ -45,7 +46,7 @@ void Game::handleEvents() {
 
 void Game::update() {
     bgX -= 0;
-    if (bgX <= -800) bgX = 0;
+    if (bgX <= -800) bgX = 1;
 
     player.update();
 }

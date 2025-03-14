@@ -23,7 +23,7 @@ private:
 
     Player player;
     bool isRunning;
-    int bgX;
+    float bgX;
 };
 
 #endif

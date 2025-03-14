@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1741708042 source:c:\game\makegame\main.cpp
+1741847548 source:c:\game\makegame\main.cpp
 	"Game.h"
 
 1741277259 c:\game\sdl2_image-2.8.8\x86_64-w64-mingw32\include\sdl2\sdl_image.h
@@ -463,20 +463,29 @@
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 
-1741709782 c:\game\makegame\game.h
+1741851237 c:\game\makegame\game.h
 	<SDL2/SDL.h>
 	"Player.h"
 
-1741710046 source:c:\game\makegame\game.cpp
+1741855183 source:c:\game\makegame\game.cpp
 	"Game.h"
-	<SDL2/SDL_image.h>
-	<iostream>
-
-1741793439 c:\game\makegame\player.h
-	<SDL2/SDL.h>
-
-1741793504 source:c:\game\makegame\player.cpp
 	"Player.h"
 	<SDL2/SDL_image.h>
 	<iostream>
+
+1741852837 c:\game\makegame\player.h
+	<SDL2/SDL.h>
+
+1741855260 source:c:\game\makegame\player.cpp
+	"Player.h"
+	<SDL2/SDL_image.h>
+	<iostream>
+
+1741852737 source:c:\game\makegame\background.cpp
+	"Background.h"
+	<iostream>
+
+1741852737 c:\game\makegame\background.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
 

@@ -2,15 +2,19 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
-const float GRAVITY = 0.6f;
-const float JUMP_FORCE = -12.0f;
+
+const float JUMP_FORCE = -15.0f;
 const float SPEED = 1.0f;
-const float MAX_FALL_SPEED = 8.0f;
+const float MAX_FALL_SPEED = 5.0f;
 const float SCREEN_WIDTH = 730.0f;
 const int COYOTE_TIME = 5;
 const int JUMP_BUFFER = 5;
 int coyoteTimeCounter = 0;
 int jumpBufferCounter = 0;
+float GRAVITY = 0;
+int cameraX = 0;
+const int LEVEL_WIDTH = 2000;
+
 
 Player::Player() : velocityX(0), velocityY(0), isJumping(false), direction(1) {
     rect = {100, 40, 50, 50};
@@ -48,7 +52,7 @@ void Player::init(SDL_Renderer* renderer) {
 }
 
 void Player::handleEvent(SDL_Event& event) {
-    if (event.type == SDL_KEYDOWN && event.key.repeat == 0) { // Chặn lặp phím
+    if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
         switch (event.key.keysym.sym) {
             case SDLK_LEFT:
                 velocityX = -SPEED;
@@ -58,7 +62,7 @@ void Player::handleEvent(SDL_Event& event) {
                 velocityX = SPEED;
                 direction = 1;
                 break;
-            case SDLK_SPACE:
+            case SDLK_UP:
                 if (!isJumping) {
                     velocityY = JUMP_FORCE;
                     isJumping = true;
@@ -81,11 +85,9 @@ void Player::update() {
     if (rect.x + rect.w > SCREEN_WIDTH) rect.x = SCREEN_WIDTH - rect.w;
 
     // Áp dụng trọng lực
-    if (velocityY < 0) {
-        velocityY += GRAVITY * 0.1f;  // Khi đi lên, giảm tốc từ từ
-    } else {
-        velocityY += GRAVITY * 0.2f;  // Khi đi xuống, tăng tốc nhẹ
-    }
+    velocityY += 1;  // Khi đi lên, giảm tốc từ từ
+    if (MAX_FALL_SPEED < velocityY)
+        velocityY = MAX_FALL_SPEED;
 
     // Chạm đất thì dừng rơi
     if (rect.y >= 300) {
@@ -94,6 +96,9 @@ void Player::update() {
         velocityY = 0;
     }
 
+    cameraX = rect.x - SCREEN_WIDTH / 2;
+    if (cameraX < 0) cameraX = 0;
+    if (cameraX > LEVEL_WIDTH - SCREEN_WIDTH) cameraX = LEVEL_WIDTH - SCREEN_WIDTH;
 
     if (velocityX != 0) {
         frameDelay--;
@@ -108,7 +113,6 @@ void Player::update() {
 
 void Player::render(SDL_Renderer* renderer) {
     SDL_Texture* currentTexture;
-
     if (isJumping) {
         currentTexture = (direction == 1) ? jumpTextureRight : jumpTextureLeft;
     } else {
@@ -118,3 +122,5 @@ void Player::render(SDL_Renderer* renderer) {
     SDL_Rect srcRect = { frame * 60, 0, 60, 60 };
     SDL_RenderCopy(renderer, currentTexture, &srcRect, &rect);
 }
+
+

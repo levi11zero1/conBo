@@ -13,6 +13,7 @@
 Game::Game() : gameState(MENU) {}
 
 
+
 void handleEvents(SDL_Event& e, bool& running, Tank& tank, SDL_Renderer* renderer,std::vector<EnemyTank> enemies) {
     while (SDL_PollEvent(&e)) {
         if (e.type == SDL_QUIT) {
@@ -66,8 +67,8 @@ void update(Tank& tank, std::vector<EnemyTank>& enemies, std::vector<Explosion>&
 
     // Cập nhật vị trí đạn của người chơi
     for (auto& bullet : tank.bullets) {
-        bullet.x += bullet.dx * bullet.speed;
-        bullet.y += bullet.dy * bullet.speed;
+        bullet.x = bullet.x + bullet.dx * bullet.speed;
+        bullet.y = bullet.y + bullet.dy * bullet.speed;
     }
 
     // Xóa đạn nếu nó ra khỏi màn hình hoặc chạm vào tường

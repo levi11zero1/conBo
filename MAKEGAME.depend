@@ -1,0 +1,108 @@
+# depslib dependency file v1.0
+1742573942 source:c:\game\makegame\bullet.cpp
+	"bullet.h"
+	"texture_manager.h"
+
+1742573244 c:\game\makegame\bullet.h
+	<SDL2/SDL.h>
+	"constants.h"
+
+1742574357 c:\game\makegame\constants.h
+
+1742573942 c:\game\makegame\texture_manager.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	<string>
+
+1742573121 source:c:\game\makegame\collision.cpp
+	"Collision.h"
+	"EnemyTank.h"
+	<vector>
+
+1742573121 c:\game\makegame\collision.h
+	"constants.h"
+	"map.h"
+	"Tank.h"
+	<vector>
+
+1742573942 c:\game\makegame\map.h
+	<SDL2/SDL.h>
+	"constants.h"
+	"texture_manager.h"
+	<vector>
+	"EnemyTank.h"
+
+1742573244 c:\game\makegame\enemytank.h
+	<vector>
+	<SDL2/SDL.h>
+	"bullet.h"
+	"constants.h"
+	"Collision.h"
+	"map.h"
+	<functional>
+	<vector>
+
+1742574110 c:\game\makegame\tank.h
+	<vector>
+	<SDL2/SDL.h>
+	"bullet.h"
+	"constants.h"
+
+1742573942 source:c:\game\makegame\enemytank.cpp
+	"EnemyTank.h"
+	"Collision.h"
+	<stdlib.h>
+	<bits/stdc++.h>
+
+1742574320 source:c:\game\makegame\game.cpp
+	"game.h"
+	<iostream>
+	<algorithm>
+	"Explosion.h"
+	"map.h"
+	<utility>
+	"EnemyTank.h"
+	<cstdlib>
+	<ctime>
+	<string>
+
+1742573942 c:\game\makegame\game.h
+	<SDL2/SDL.h>
+	<vector>
+	"tank.h"
+	"EnemyTank.h"
+	"texture_manager.h"
+	"Explosion.h"
+	"explosion.h"
+	<fstream>
+
+1742573244 c:\game\makegame\explosion.h
+	<SDL2/SDL.h>
+
+1742574239 source:c:\game\makegame\main.cpp
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<SDL2/SDL_mixer.h>
+	<iostream>
+	<vector>
+	"game.h"
+	"tank.h"
+	"EnemyTank.h"
+	"texture_manager.h"
+	"explosion.h"
+	<utility>
+	<fstream>
+	<stdlib.h>
+	<bits/stdc++.h>
+
+1742573121 source:c:\game\makegame\map.cpp
+	"map.h"
+
+1742573121 source:c:\game\makegame\tank.cpp
+	"tank.h"
+
+1742573942 source:c:\game\makegame\texture_manager.cpp
+	"texture_manager.h"
+	<iostream>
+	<SDL2/SDL_ttf.h>
+

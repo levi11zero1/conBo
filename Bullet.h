@@ -1,11 +1,10 @@
-// include/bullet.h
 #ifndef BULLET_H
 #define BULLET_H
 #include <SDL2/SDL.h>
 #include "constants.h"
 
 class Bullet {
-public: // Thêm public để các thành viên có thể truy cập
+public:
     int x, y;
     int dx, dy;
     int speed = 5;

@@ -47,7 +47,6 @@ int main(int argc, char* argv[]) {
     for (int y = 0; y < MAP_HEIGHT; ++y) {
         for (int x = 0; x < MAP_WIDTH; ++x) {
             if (map[y][x] == 0 && (y != 10 && x !=6)) {
-                // Thêm tọa độ (x, y) vào vector indexOfZero
                 indexOfZero.push_back({ x, y });
             }
         }
@@ -55,12 +54,12 @@ int main(int argc, char* argv[]) {
     Game game;
     GameLevel level;
     int gamelevel;
-    Mix_Music* backgroundMusic = Mix_LoadMUS("asset/background.mp3"); // Thay "background.mp3" bằng đường dẫn đến file nhạc của bạn
+    Mix_Music* backgroundMusic = Mix_LoadMUS("asset/background.mp3");
     if (!backgroundMusic) {
         std::cout << "Khong the tai nhac nen: " << Mix_GetError() << std::endl;
         return 1;
     }
-    // Phát nhạc
+    // Nhạc
     Mix_PlayMusic(backgroundMusic, -1);
     int hightScore = 0;
 
@@ -146,7 +145,7 @@ int main(int argc, char* argv[]) {
             if (game.getGamesatus() == PLAYING) {
                 update(tank, enemies, explosions, explosionTexture1, explosionTexture2, explosionTexture3, game, indexOfZero, renderer, score,gamelevel);
             }
-            render(renderer, tank, enemies, explosions, game, running, score,hightScore); // explosions them
+            render(renderer, tank, enemies, explosions, game, running, score,hightScore);
             if (game.getGamesatus() == GAME_OVER)
             {
                 setHighScore(score, hightScore);
@@ -165,9 +164,9 @@ int main(int argc, char* argv[]) {
                             renderMap(renderer);
                             resetGame(tank, enemies, explosions, score, renderer);
                             render(renderer, tank, enemies, explosions, game, running, score,hightScore);
-                            game.setGameSate(PLAYING); // Chỉnh sửa hàm setGameState
+                            game.setGameSate(PLAYING);
                         }
-                        else if (e.key.keysym.sym == SDLK_SPACE) // Nhấn ESC để thoát
+                        else if (e.key.keysym.sym == SDLK_SPACE) // Nhấn Space để thoát
                         {
                             running = false;
                         }
@@ -177,6 +176,7 @@ int main(int argc, char* argv[]) {
 
         }
         SDL_Delay(10);
+
     }
     SDL_DestroyTexture(explosionTexture1);
     SDL_DestroyTexture(explosionTexture2);

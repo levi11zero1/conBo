@@ -2,6 +2,8 @@
 #include "EnemyTank.h"
 #include <vector>
 
+//KIỂM TRA VA CHẠM
+
 bool checkCollision(int x, int y) {
     int tileX1 = x / TILE_SIZE;
     int tileY1 = y / TILE_SIZE;
@@ -32,19 +34,22 @@ bool checkCollision(int x, int y) {
         map[tileY4][tileX4] == 1 || map[tileY4][tileX4] == 2 || map[tileY4][tileX4] == 3);
 }
 
+//Kiểm tra va chạm của xe tăng địch với nhau
 bool checkCollsionTank(int x, int y, EnemyTank* current, const std::vector<EnemyTank>& enemies) {
     SDL_Rect newRect = { x, y, TANK_SIZE, TANK_SIZE };
 
     for (const auto& enemy : enemies) {
-        if (&enemy != current) {  // Không kiểm tra chính nó
+        if (&enemy != current) {
             SDL_Rect enemyRect = { enemy.getX(), enemy.getY(), TANK_SIZE, TANK_SIZE };
             if (SDL_HasIntersection(&newRect, &enemyRect)) {
-                return true; // Có va chạm
+                return true;
             }
         }
     }
     return false;
 }
+
+//Kiểm tra va chạm của các xe tăng địch với xe tăng mình
 bool checkCollsionTank1(int x, int y, const std::vector<EnemyTank>& enemies)
 {
     SDL_Rect newRect = { x, y, TANK_SIZE, TANK_SIZE };
@@ -52,12 +57,13 @@ bool checkCollsionTank1(int x, int y, const std::vector<EnemyTank>& enemies)
     for (const auto& enemy : enemies) {
             SDL_Rect enemyRect = { enemy.getX(), enemy.getY(), TANK_SIZE, TANK_SIZE };
             if (SDL_HasIntersection(&newRect, &enemyRect)) {
-                return true; // Có va chạm
+                return true;
             }
     }
     return false;
 }
 
+//Kiểm tra va chạm của 1 xe tăng địch với xe tăng mình
 bool checkTankCollision(const EnemyTank& enemy, const Tank& player) {
     SDL_Rect enemyRect = { enemy.getX(), enemy.getY(), TANK_SIZE, TANK_SIZE };
     SDL_Rect playerRect = { player.x, player.y, TANK_SIZE, TANK_SIZE };

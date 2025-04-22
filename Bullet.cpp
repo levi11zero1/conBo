@@ -1,6 +1,8 @@
 #include "bullet.h"
 #include "texture_manager.h"
 
+//Load texture cho đạn
+
 Bullet::Bullet(int startX, int startY, int directionX, int directionY, SDL_Renderer* renderer) {
     x = startX;
     y = startY;

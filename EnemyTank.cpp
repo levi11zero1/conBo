@@ -7,7 +7,7 @@ EnemyTank::EnemyTank(int startX, int startY, SDL_Renderer* renderer) : renderer(
     y = startY;
 }
 
-
+//Di chuyển
 void EnemyTank::moveRandomly() {
     int newX = x + dirX * speed;
     int newY = y + dirY * speed;
@@ -26,12 +26,14 @@ void EnemyTank::moveRandomly() {
     isHidden = (map[y / TILE_SIZE][x / TILE_SIZE] == 3);
 }
 
-
+//Bắn đạn
 void EnemyTank::shoot() {
     bullets.push_back(Bullet(x + TANK_SIZE / 2 - BULLET_SIZE / 2,
         y + TANK_SIZE / 2 - BULLET_SIZE / 2,
         dirX, dirY, renderer));
 }
+
+//Xóa đạn
 void EnemyTank::removeBullets(std::function<bool(const Bullet&)> predicate) {
     bullets.erase(std::remove_if(bullets.begin(), bullets.end(), predicate), bullets.end());
 }

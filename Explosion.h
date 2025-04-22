@@ -6,9 +6,9 @@
 
 struct Explosion {
     int x, y;
-    SDL_Texture* textures[3]; // Mảng 3 texture
+    SDL_Texture* textures[3];
     int currentTextureIndex;
-    int duration; // Thời gian hiển thị mỗi texture, có thể điều chỉnh
+    int duration;
     bool finished;
 };
 

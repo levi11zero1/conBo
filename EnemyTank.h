@@ -20,15 +20,15 @@ private:
     std::vector<Bullet> bullets;
     bool isHidden = false;
     SDL_Texture* texture = nullptr;
-    SDL_Renderer* renderer; // Thêm thành viên renderer
+    SDL_Renderer* renderer;
     int rotation = 0;
 public:
-    EnemyTank(int startX, int startY, SDL_Renderer* renderer); // Sửa đổi constructor
+    EnemyTank(int startX, int startY, SDL_Renderer* renderer);
     void moveRandomly();
     void shoot();
     void removeBullets(std::function<bool(const Bullet&)> predicate);
 
-    // Getter để truy xuất các thành viên private (ví dụ):
+
     int getX() const { return x; }
     int getY() const { return y; }
     int getDirX() const { return dirX; }

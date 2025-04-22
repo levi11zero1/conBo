@@ -5,7 +5,7 @@
 #include "map.h"
 #include <utility>
 #include "EnemyTank.h"
-#include <cstdlib> // Để sử dụng rand() và srand()
+#include <cstdlib>
 #include <ctime>
 #include <string>
 
@@ -13,7 +13,7 @@
 Game::Game() : gameState(MENU) {}
 
 
-
+//Di chuyển, bắn của nhân vật
 void handleEvents(SDL_Event& e, bool& running, Tank& tank, SDL_Renderer* renderer,std::vector<EnemyTank> enemies) {
     while (SDL_PollEvent(&e)) {
         if (e.type == SDL_QUIT) {
@@ -65,44 +65,44 @@ void handleEvents(SDL_Event& e, bool& running, Tank& tank, SDL_Renderer* rendere
 
 void update(Tank& tank, std::vector<EnemyTank>& enemies, std::vector<Explosion>& explosions, SDL_Texture* explosionTexture1, SDL_Texture* explosionTexture2, SDL_Texture* explosionTexture3,Game& game, std::vector<std::pair<int, int>> indexOfZero,SDL_Renderer* renderer,int& score, const int& gameLevel) {
 
-    // Cập nhật vị trí đạn của người chơi
+    // Cập nhật vị trí đạn của mình
     for (auto& bullet : tank.bullets) {
         bullet.x = bullet.x + bullet.dx * bullet.speed;
         bullet.y = bullet.y + bullet.dy * bullet.speed;
     }
 
-    // Xóa đạn nếu nó ra khỏi màn hình hoặc chạm vào tường
+    // Xóa đạn nếu nó ra khỏi màn hình hoặc bắn vào tường
     tank.bullets.erase(std::remove_if(tank.bullets.begin(), tank.bullets.end(), [&](Bullet& b) {
         int tileX = b.x / TILE_SIZE;
         int tileY = b.y / TILE_SIZE;
 
         if (b.x < 0 || b.x >= SCREEN_WIDTH || b.y < 0 || b.y >= SCREEN_HEIGHT ||
             map[tileY][tileX] == 1 || map[tileY][tileX] == 2 || map[tileY][tileX] == 3) {
-
-            if (map[tileY][tileX] == 1) { // Nếu là gạch, thì phá hủy
+            // Nếu là gạch, thì phá hủy
+            if (map[tileY][tileX] == 1) {
                 map[tileY][tileX] = 0;
             }
-            return true; // Xóa viên đạn
+            return true;
         }
         // Kiểm tra nếu đạn bắn trúng xe tăng địch
         for (auto& enemy : enemies) {
             if (!enemy.getHidden() && b.x >= enemy.getX() && b.x <= enemy.getX() + TANK_SIZE &&
                 b.y >= enemy.getY() && b.y <= enemy.getY() + TANK_SIZE) {
 
-                // Xe tăng địch bị bắn trúng -> tạo vụ nổ
+                // Xe tăng địch bị bắn trúng sẽ tạo vụ nổ
                 Explosion explosion;
                 explosion.x = enemy.getX();
                 explosion.y = enemy.getY();
                 explosion.textures[0] = explosionTexture1;
                 explosion.textures[1] = explosionTexture2;
                 explosion.textures[2] = explosionTexture3;
-                explosion.currentTextureIndex = 0; // Bắt đầu với texture đầu tiên
+                explosion.currentTextureIndex = 0;
                 explosion.duration = 0;
                 explosion.finished = false;
-                explosions.push_back(explosion); // explosions là một tham số truyền vào
+                explosions.push_back(explosion);
                 enemy.setIsHidden(true);
                 score++;
-                return true; // Xóa viên đạn
+                return true;
             }
         }
         return false;
@@ -113,15 +113,15 @@ void update(Tank& tank, std::vector<EnemyTank>& enemies, std::vector<Explosion>&
         for (auto& bullet : enemy.getBullets()) {
             if (!tank.isHidden && bullet.x >= tank.x && bullet.x <= tank.x + TANK_SIZE &&
                 bullet.y >= tank.y && bullet.y <= tank.y + TANK_SIZE) {
-                // Xe tăng người chơi bị trúng đạn -> ẩn xe tăng
+                // Xe tăng người chơi bị trúng đạn thì sẽ xóa xe tăng và gameover
                 game.setGameSate(GAME_OVER);
                 tank.isHidden = true;
-                return; // Dừng cập nhật khi xe tăng bị trúng đạn
+                return; // Dừng cập nhật
             }
         }
     }
 
-    // Xóa các xe tăng địch bị ẩn (bị bắn trúng) khỏi danh sách
+    // Xóa các xe tăng địch bị ẩn (bị bắn trúng) khỏi vector enemies
     enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](EnemyTank& enemy) {
         return enemy.getHidden();
         }), enemies.end());
@@ -166,7 +166,7 @@ void update(Tank& tank, std::vector<EnemyTank>& enemies, std::vector<Explosion>&
 
             enemy.moveRandomly(); // Di chuyển
 
-            // Nếu di chuyển xong mà bị va chạm, quay đầu lại
+            // Nếu di chuyển xong mà bị va chạm sẽ quay đầu lại
             if (checkCollsionTank(enemy.getX(), enemy.getY(), &enemy, enemies) || checkTankCollision(enemy,tank)) {
                 enemy.setX(oldX);
                 enemy.setY(oldY);
@@ -175,7 +175,7 @@ void update(Tank& tank, std::vector<EnemyTank>& enemies, std::vector<Explosion>&
             }
         }
 
-        if (rand() % 100 < 3) { // 3% cơ hội bắn đạn mỗi frame
+        if (rand() % 100 < 3) {
             enemy.shoot();
         }
     }
@@ -197,8 +197,8 @@ void update(Tank& tank, std::vector<EnemyTank>& enemies, std::vector<Explosion>&
             // Kiểm tra xem đạn có va vào tường gạch hoặc thép không
             if (b.x < 0 || b.x >= SCREEN_WIDTH || b.y < 0 || b.y >= SCREEN_HEIGHT ||
                 map[tileY][tileX] == 1 || map[tileY][tileX] == 2 || map[tileY][tileX] == 3) {
-
-                if (map[tileY][tileX] == 1) { // Nếu là gạch, phá hủy gạch
+                 // Nếu là gạch, phá hủy gạch
+                if (map[tileY][tileX] == 1) {
                     map[tileY][tileX] = 0;
                 }
                 if (map[tileY][tileX] == 3)
@@ -210,7 +210,7 @@ void update(Tank& tank, std::vector<EnemyTank>& enemies, std::vector<Explosion>&
             return false;
             });
     }
-    for (auto it = explosions.begin(); it != explosions.end(); ) { // explosions là một tham số truyền vào
+    for (auto it = explosions.begin(); it != explosions.end(); ) {
         it->duration++;
         if (it->duration >= 10) {
             it->duration = 0;
@@ -256,9 +256,9 @@ void render(SDL_Renderer* renderer, Tank& tank, std::vector<EnemyTank>& enemies,
     for (auto& enemy : enemies) {
         if (!enemy.getHidden()) {
             double angle = 0;
-            if (enemy.getDirX() == 1) angle = -90;   // Quay phải
-            if (enemy.getDirX() == -1) angle = 90; // Quay trái
-            if (enemy.getDirY() == -1) angle = 180;  // Quay xuống
+            if (enemy.getDirX() == 1) angle = -90;
+            if (enemy.getDirX() == -1) angle = 90;
+            if (enemy.getDirY() == -1) angle = 180;
             SDL_Rect enemyRect = { enemy.getX(), enemy.getY(), TANK_SIZE, TANK_SIZE};
             SDL_RenderCopyEx(renderer, enemy.getTexture(), nullptr, &enemyRect, angle, nullptr, SDL_FLIP_NONE);
         }
@@ -273,7 +273,7 @@ void render(SDL_Renderer* renderer, Tank& tank, std::vector<EnemyTank>& enemies,
             SDL_RenderCopy(renderer, bullet.texture, nullptr, &bulletRect);
         }
         else {
-            // Vẽ hình chữ nhật nếu không có texture
+
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
             SDL_Rect bulletRect = { bullet.x, bullet.y, BULLET_SIZE, BULLET_SIZE };
             SDL_RenderFillRect(renderer, &bulletRect);
@@ -328,8 +328,8 @@ void render(SDL_Renderer* renderer, Tank& tank, std::vector<EnemyTank>& enemies,
     if (game.getGamesatus() == PLAYING)
     {
         getHighScore(hightscore);
-        SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255); // Màu xám nhạt
-        SDL_Rect divider = { SCREEN_WIDTH, 0, 2, SCREEN_HEIGHT }; // Thanh rộng 2px
+        SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
+        SDL_Rect divider = { SCREEN_WIDTH, 0, 2, SCREEN_HEIGHT };
         std::string gameScore = "SCORE : " + std::to_string(score);
         std::string highestScore = "HIGHEST SCORE : " + std::to_string(hightscore);
         renderTextScore(gameScore, "asset/win.ttf", SCREEN_WIDTH + 20, 50, renderer,30);
@@ -342,16 +342,17 @@ void render(SDL_Renderer* renderer, Tank& tank, std::vector<EnemyTank>& enemies,
     SDL_RenderPresent(renderer);
 }
 
+//Reset trò chơi: xóa xe tăng địch, vụ nổ, điểm số
 void resetGame(Tank& tank, std::vector<EnemyTank>& enemies, std::vector<Explosion>& explosions, int& score,SDL_Renderer* renderer) {
     enemies.clear(); // Xóa toàn bộ xe tăng địch
     explosions.clear();
    // Xóa toàn bộ vụ nổ
-    tank.x = 6 * 40; // Reset xe tăng của người chơi (tạo hàm reset() nếu cần)
+    tank.x = 6 * 40;
     tank.y = 10 * 40;
     tank.dirX = 0;
     tank.dirY = -1;
     tank.isHidden = false;
-    score = 0; // Reset điểm số
+    score = 0;
 }
 
 void getHighScore(int& hightScore)

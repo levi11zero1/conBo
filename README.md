@@ -1,4 +1,4 @@
-# Game conBo - Bắn xe tăng cổ điển 
+# Game conBo - Bắn xe tăng cổ điển
 - Link video demo game: https://drive.google.com/file/d/1AfMpLrBvcF46COfaPCBAIkwKibFKh5ur/view?usp=sharing
 ## 1. Giới thiệu game:
 **conBo** là game bắn xe tăng cổ điển lấy cảm hứng từ tựa game BattleCity. Trong game người chơi sẽ điều khiển xa tăng bắn hạ nhiều kẻ địch nhất có thể và bảo vệ căn cứ. Trò chơi có lối chơi đơn giản nhưng cũng đầy thử thách, yêu cầu người chơi vừa tấn công vừa phòng thủ một cách linh hoạt. Trò chơi có các mức level khác nhau để người chơi có thể lựa chọn nhằm thử thách bản thân, mang lại trải nghiệm thú vị và đầy tính chiến thuật.

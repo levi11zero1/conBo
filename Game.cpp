@@ -52,12 +52,12 @@ void handleEvents(SDL_Event& e, bool& running, Tank& tank, SDL_Renderer* rendere
                 tank.x = newX;
                 tank.y = newY;
             }
-            if (map[newY / TILE_SIZE][newX / TILE_SIZE] == 3) {
-                tank.isHidden = true;
-            }
-            else {
-                tank.isHidden = false;
-            }
+//            if (map[newY / TILE_SIZE][newX / TILE_SIZE] == 3) {
+//                tank.isHidden = true;
+//            }
+//            else {
+//                tank.isHidden = false;
+//            }
         }
     }
 }

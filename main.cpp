@@ -61,6 +61,7 @@ int main(int argc, char* argv[]) {
     }
     // Nhạc
     Mix_PlayMusic(backgroundMusic, -1);
+    Mix_VolumeMusic(10);
     int hightScore = 0;
 
     bool running = true;
